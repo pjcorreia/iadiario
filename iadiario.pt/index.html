@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IA Diário - Daily AI Projects</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3a0ca3;
+            --secondary: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4ade80;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+        
+        header.scrolled {
+            padding: 10px 0;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo img {
+            height: 40px;
+            transition: var(--transition);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            font-size: 1.1rem;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .language-switcher button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+        
+        .language-switcher button.active {
+            opacity: 1;
+            font-weight: bold;
+        }
+        
+        .language-switcher button:hover {
+            opacity: 1;
+        }
+        
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background-color: rgba(76, 201, 240, 0.1);
+            clip-path: polygon(100% 0, 0 0, 100% 100%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 650px;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeUp 1s forwards 0.5s;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--primary);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: var(--dark);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(58, 12, 163, 0.3);
+            align-self: flex-start;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(58, 12, 163, 0.4);
+        }
+        
+        /* Introduction Section */
+        .section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            bottom: -10px;
+            left: 0;
+            background-color: var(--secondary);
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .introduction-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        /* Catalog Section */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            transform: translateY(0);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .project-content {
+            padding: 20px;
+        }
+        
+        .project-number {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .project-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .project-desc {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .project-link {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            position: relative;
+        }
+        
+        .project-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .project-link:hover::after {
+            width: 100%;
+        }
+        
+        .project-link i {
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+        
+        .project-link:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* WhoAmI Section */
+        .whoami-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .author-image {
+            flex: 0 0 300px;
+            position: relative;
+        }
+        
+        .author-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            border: 4px solid var(--secondary);
+            z-index: -1;
+            transition: var(--transition);
+        }
+        
+        .author-image:hover::before {
+            top: -10px;
+            left: -10px;
+        }
+        
+        .author-image img {
+            width: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .author-bio {
+            flex: 1;
+        }
+        
+        .author-bio h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .author-description {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            transform: translateY(-5px);
+            background-color: var(--secondary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .footer-logo {
+            height: 40px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Animations */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .whoami-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .author-image {
+                flex: 0 0 250px;
+                margin: 0 auto;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links, .language-switcher {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 2.3rem;
+            }
+            
+            .section {
+                padding: 70px 0;
+            }
+            
+            .catalog-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <img src="iadiariologo.jpg" alt="IA Diário Logo">
+                    <h1>IA Diário</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="#intro" class="nav-link" data-en="Introduction" data-pt="Introdução">Introdução</a>
+                    <a href="#catalog" class="nav-link" data-en="Catalog" data-pt="Catálogo">Catálogo</a>
+                    <a href="#whoami" class="nav-link" data-en="Who Am I" data-pt="Quem Sou">Quem Sou</a>
+                </div>
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="pt">PT</button>
+                    <span>|</span>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title" data-en="A New AI Project Every Day" data-pt="Um Novo Projeto de IA Todos os Dias">Um Novo Projeto de IA Todos os Dias</h1>
+                    <p class="hero-subtitle" data-en="Exploring the full potential of AI by creating and documenting daily projects that showcase the power of artificial intelligence in practical applications." data-pt="Explorando todo o potencial da IA através da criação e documentação de projetos diários que demonstram o poder da inteligência artificial em aplicações práticas.">Explorando todo o potencial da IA através da criação e documentação de projetos diários que demonstram o poder da inteligência artificial em aplicações práticas.</p>
+                    <a href="#catalog" class="cta-button" data-en="Explore Projects" data-pt="Explorar Projetos">Explorar Projetos</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="intro" class="section">
+            <div class="container">
+                <h2 class="section-title fade-in" data-en="Introduction" data-pt="Introdução">Introdução</h2>
+                <p class="introduction-text fade-in" data-en="Artificial Intelligence is revolutionizing the way we approach software development. The barrier between having an idea and implementing it is shrinking rapidly, making it easier than ever for developers to build complex applications quickly and efficiently. Soon, AI will bridge the gap between non-technical visionaries and actual implementation, allowing anyone to bring their ideas to life without writing a single line of code. This initiative demonstrates this potential by creating a new AI-driven project every day, showcasing both the capabilities of current AI tools and the amazing possibilities of tomorrow's technology." data-pt="A Inteligência Artificial está a revolucionar a forma como abordamos o desenvolvimento de software. A barreira entre ter uma ideia e implementá-la está a diminuir rapidamente, tornando mais fácil do que nunca para programadores construírem aplicações complexas de forma rápida e eficiente. Em breve, a IA eliminará a lacuna entre visionários não técnicos e a implementação real, permitindo que qualquer pessoa dê vida às suas ideias sem escrever uma única linha de código. Esta iniciativa demonstra esse potencial criando um novo projeto baseado em IA todos os dias, mostrando tanto as capacidades das ferramentas de IA atuais quanto as possibilidades incríveis da tecnologia do futuro.">A Inteligência Artificial está a revolucionar a forma como abordamos o desenvolvimento de software. A barreira entre ter uma ideia e implementá-la está a diminuir rapidamente, tornando mais fácil do que nunca para programadores construírem aplicações complexas de forma rápida e eficiente. Em breve, a IA eliminará a lacuna entre visionários não técnicos e a implementação real, permitindo que qualquer pessoa dê vida às suas ideias sem escrever uma única linha de código. Esta iniciativa demonstra esse potencial criando um novo projeto baseado em IA todos os dias, mostrando tanto as capacidades das ferramentas de IA atuais quanto as possibilidades incríveis da tecnologia do futuro.</p>
+            </div>
+        </section>
+
+        <section id="catalog" class="section">
+            <div class="container">
+                <h2 class="section-title fade-in" data-en="Project Catalog" data-pt="Catálogo de Projetos">Catálogo de Projetos</h2>
+                <p class="fade-in" data-en="Browse through all the AI-powered projects created as part of this initiative. A new project is added every day." data-pt="Navegue por todos os projetos desenvolvidos com IA como parte desta iniciativa. Um novo projeto é adicionado todos os dias.">Navegue por todos os projetos desenvolvidos com IA como parte desta iniciativa. Um novo projeto é adicionado todos os dias.</p>
+                
+                <div class="catalog-grid fade-in" id="projects-container">
+                    <!-- Projects will be loaded here from JSON -->
+                </div>
+            </div>
+        </section>
+
+        <section id="whoami" class="section">
+            <div class="container">
+                <h2 class="section-title fade-in" data-en="Who Am I" data-pt="Quem Sou">Quem Sou</h2>
+                <div class="whoami-content fade-in">
+                    <div class="author-image">
+                        <img src="profile.jpg" alt="Profile Picture">
+                    </div>
+                    <div class="author-bio">
+                        <h3 data-en="About the Author" data-pt="Sobre o Autor">Sobre o Autor</h3>
+                        <p class="author-description" data-en="I'm a technology enthusiast with a passion for exploring the potential of artificial intelligence and how it can transform our daily lives. With a background in software development and a deep fascination with AI, I've embarked on this journey to create and document a new AI-powered project every day. My goal is to showcase the incredible capabilities of modern AI tools and inspire others to leverage these technologies in their own work." data-pt="Sou um entusiasta da tecnologia com uma paixão por explorar o potencial da inteligência artificial e como ela pode transformar o nosso quotidiano. Com experiência em desenvolvimento de software e um profundo fascínio pela IA, embarquei nesta jornada para criar e documentar um novo projeto baseado em IA todos os dias. O meu objetivo é mostrar as incríveis capacidades das modernas ferramentas de IA e inspirar outros a aproveitarem estas tecnologias no seu próprio trabalho.">Sou um entusiasta da tecnologia com uma paixão por explorar o potencial da inteligência artificial e como ela pode transformar o nosso quotidiano. Com experiência em desenvolvimento de software e um profundo fascínio pela IA, embarquei nesta jornada para criar e documentar um novo projeto baseado em IA todos os dias. O meu objetivo é mostrar as incríveis capacidades das modernas ferramentas de IA e inspirar outros a aproveitarem estas tecnologias no seu próprio trabalho.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="social-link" title="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="social-link" title="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <img src="iadiariologodark.jpg" alt="IA Diário Logo" class="footer-logo">
+                <div class="footer-links">
+                    <a href="#intro" data-en="Introduction" data-pt="Introdução">Introdução</a>
+                    <a href="#catalog" data-en="Catalog" data-pt="Catálogo">Catálogo</a>
+                    <a href="#whoami" data-en="Who Am I" data-pt="Quem Sou">Quem Sou</a>
+                </div>
+                <p class="copyright" data-en="© 2025 IA Diário. All rights reserved." data-pt="© 2025 IA Diário. Todos os direitos reservados.">© 2025 IA Diário. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Load projects from JSON
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sample JSON data (this would be loaded from an external file in production)
+  
+            const projectsContainer = document.getElementById('projects-container');
+            const currentLang = document.querySelector('.lang-btn.active').dataset.lang;
+            
+            // Render projects
+            fetch('projects.json')
+                .then(response => response.json())
+                .then(data => {
+                    renderProjects(data, currentLang);
+                });
+            
+            // Scroll animation
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            fadeElements.forEach(el => observer.observe(el));
+            
+            // Header scroll effect
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+            
+            // Language switcher
+            const langButtons = document.querySelectorAll('.lang-btn');
+            langButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (!btn.classList.contains('active')) {
+                        document.querySelector('.lang-btn.active').classList.remove('active');
+                        btn.classList.add('active');
+                        
+                        const lang = btn.dataset.lang;
+                        switchLanguage(lang);
+                        renderProjects(projects, lang);
+                    }
+                });
+            });
+            
+            function switchLanguage(lang) {
+                const elements = document.querySelectorAll('[data-en], [data-pt]');
+                elements.forEach(el => {
+                    if (el.dataset[lang]) {
+                        el.textContent = el.dataset[lang];
+                    }
+                });
+            }
+            
+            function renderProjects(projects, lang) {
+                projectsContainer.innerHTML = '';
+                
+                projects.forEach(project => {
+                    const card = document.createElement('div');
+                    card.className = 'project-card';
+                    
+                    const title = lang === 'en' ? project.titleEn : project.title;
+                    const description = lang === 'en' ? project.descriptionEn : project.description;
+                    const viewProject = lang === 'en' ? 'View Project' : 'Ver Projeto';
+                    
+                    card.innerHTML = `
+                        <img src="${project.image}" alt="${title}" class="project-image">
+                        <div class="project-content">
+                            <span class="project-number">#${project.id}</span>
+                            <h3 class="project-title">${title}</h3>
+                            <p class="project-desc">${description}</p>
+                            <a href="${project.url}" class="project-link">${viewProject} <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    `;
+                    
+                    projectsContainer.appendChild(card);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

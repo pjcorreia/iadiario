@@ -1,0 +1,12 @@
+[
+    {
+      "id": 1,
+      "title": "IA Diário Website",
+      "titleEn": "IA Diário Website",
+      "description": "Website para o projeto IA Diário, criado com HTML, CSS e JavaScript.",
+      "descriptionEn": "Website for the IA Diário project, created with HTML, CSS and JavaScript.",
+      "date": "2025-03-04",
+      "image": "iadiario.jpg",
+      "url": "https://iadiario.pt"
+    }
+  ]
