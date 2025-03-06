@@ -1,4 +1,4 @@
-[
+﻿[
     {
       "id": 1,
       "title": "IA Diário Website",
@@ -13,10 +13,20 @@
       "id": 2,
       "title": "Infinitos Sudoku",
       "titleEn": "Sudoku Infinite",
-      "description": "Website com sudokus infinitos. Este projecto foi criado em Vs Code e Clive (3 minutos).",
-      "descriptionEn": "Website with infinite sudokus. This project was created in VS Code and Clive (3 minutes).",
+      "description": "Website com sudokus infinitos. Este projecto foi criado em Vs Code e Cline (3 minutos).",
+      "descriptionEn": "Website with infinite sudokus. This project was created in VS Code and Cline (3 minutes).",
       "date": "2025-03-05",
       "image": "sudokuinfinite.jpg",
       "url": "https://sudokuinfinite.pt"
+    },
+    {
+      "id": 3,
+      "title": "Jogo do Galo (Multi-jogador)",
+      "titleEn": "Tic Tac Toe (Multiplayer)",
+      "description": "Jogo do galo para jogar com outra pessoa online.",
+      "descriptionEn": "Tic Tac Toe online to play with someone else online.",
+      "date": "2025-03-06",
+      "image": "tictactoe.jpg",
+      "url": "https://tictactoe.pt"
     }
   ]

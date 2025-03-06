@@ -1,33 +1,22 @@
-// Projects data embedded directly to avoid CORS issues when opening locally
-const projectsData = [
-    {
-        "id": 1,
-        "title": "IA Diário Website",
-        "titleEn": "IA Diário Website",
-        "description": "Website para o projeto IA Diário, criado com HTML, CSS e JavaScript.",
-        "descriptionEn": "Website for the IA Diário project, created with HTML, CSS and JavaScript.",
-        "date": "2025-03-04",
-        "image": "iadiario.jpg",
-        "url": "https://iadiario.pt"
-    },
-    {
-        "id": 2,
-        "title": "Infinitos Sudoku",
-        "titleEn": "Sudoku Infinite",
-        "description": "Website com sudokus infinitos. Este projecto foi criado em Vs Code e Clive (3 minutos).",
-        "descriptionEn": "Website with infinite sudokus. This project was created in VS Code and Clive (3 minutes).",
-        "date": "2025-03-05",
-        "image": "sudokuinfinite.jpg",
-        "url": "https://sudokuinfinite.pt"
-    }
-];
+// Load projects data from JSON file
+let projectsData = [];
 
 document.addEventListener('DOMContentLoaded', function() {
     const projectsContainer = document.getElementById('projects-container');
     const currentLang = document.querySelector('.lang-btn.active').dataset.lang;
     
-    // Render projects
-    renderProjects(projectsData, currentLang);
+    // Fetch projects data from JSON file
+    fetch('projects.json')
+        .then(response => response.json())
+        .then(data => {
+            projectsData = data;
+            // Render projects after data is loaded
+            renderProjects(projectsData, currentLang);
+        })
+        .catch(error => {
+            console.error('Error loading projects data:', error);
+            projectsContainer.innerHTML = '<p>Error loading projects. Please try again later.</p>';
+        });
     
     // Scroll animation
     const fadeElements = document.querySelectorAll('.fade-in');
