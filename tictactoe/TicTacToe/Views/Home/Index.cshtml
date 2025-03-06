@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Multiplayer Tic Tac Toe";
+}
+
+<div class="container">
+    <h1 class="text-center mb-4">Multiplayer Tic Tac Toe</h1>
+    
+    <div id="welcome-screen" class="card p-4 mb-4">
+        <h2 class="text-center mb-4">Welcome to Tic Tac Toe</h2>
+        <div class="d-flex flex-column align-items-center">
+            <button id="create-game-btn" class="btn btn-primary mb-3">Create New Game</button>
+            <div class="input-group mb-3">
+                <input type="text" id="game-id-input" class="form-control" placeholder="Enter Game ID">
+                <button id="join-game-btn" class="btn btn-success">Join Game</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="game-screen" class="card p-4 mb-4 d-none">
+        <div class="d-flex justify-content-between mb-3">
+            <div id="player-turn" class="h5 text-danger">Waiting for opponent...</div>
+            <div id="game-id-display" class="h5">Game ID: <span id="game-id"></span></div>
+        </div>
+        
+        <div id="board" class="mb-4">
+            <div class="row g-2">
+                <div class="col-4"><div class="cell" data-index="0"></div></div>
+                <div class="col-4"><div class="cell" data-index="1"></div></div>
+                <div class="col-4"><div class="cell" data-index="2"></div></div>
+            </div>
+            <div class="row g-2">
+                <div class="col-4"><div class="cell" data-index="3"></div></div>
+                <div class="col-4"><div class="cell" data-index="4"></div></div>
+                <div class="col-4"><div class="cell" data-index="5"></div></div>
+            </div>
+            <div class="row g-2">
+                <div class="col-4"><div class="cell" data-index="6"></div></div>
+                <div class="col-4"><div class="cell" data-index="7"></div></div>
+                <div class="col-4"><div class="cell" data-index="8"></div></div>
+            </div>
+        </div>
+        
+        <div id="game-over" class="text-center d-none">
+            <h2 id="game-result" class="mb-3">Game Over</h2>
+            <button id="restart-btn" class="btn btn-primary">Play Again</button>
+        </div>
+    </div>
+    
+    <div id="notification" class="alert alert-danger d-none"></div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <script src="~/js/game.js"></script>
+}

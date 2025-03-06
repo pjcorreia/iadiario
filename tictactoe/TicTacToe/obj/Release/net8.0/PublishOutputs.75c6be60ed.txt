@@ -1,0 +1,15 @@
+C:\github\iadiario\tictactoe\TicTacToe\publish\TicTacToe.exe
+C:\github\iadiario\tictactoe\TicTacToe\publish\appsettings.Development.json
+C:\github\iadiario\tictactoe\TicTacToe\publish\appsettings.json
+C:\github\iadiario\tictactoe\TicTacToe\publish\TicTacToe.dll
+C:\github\iadiario\tictactoe\TicTacToe\publish\TicTacToe.deps.json
+C:\github\iadiario\tictactoe\TicTacToe\publish\TicTacToe.runtimeconfig.json
+C:\github\iadiario\tictactoe\TicTacToe\publish\TicTacToe.pdb
+C:\github\iadiario\tictactoe\TicTacToe\publish\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\github\iadiario\tictactoe\TicTacToe\publish\Microsoft.Extensions.Diagnostics.Abstractions.dll
+C:\github\iadiario\tictactoe\TicTacToe\publish\Microsoft.Extensions.Hosting.Abstractions.dll
+C:\github\iadiario\tictactoe\TicTacToe\publish\Microsoft.Extensions.Logging.Abstractions.dll
+C:\github\iadiario\tictactoe\TicTacToe\publish\Microsoft.Extensions.ObjectPool.dll
+C:\github\iadiario\tictactoe\TicTacToe\publish\Microsoft.Extensions.Options.dll
+C:\github\iadiario\tictactoe\TicTacToe\publish\Newtonsoft.Json.dll
+C:\github\iadiario\tictactoe\TicTacToe\publish\System.Net.WebSockets.WebSocketProtocol.dll
